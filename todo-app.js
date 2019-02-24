@@ -29,14 +29,33 @@ const todos = [{
 // newParagraph.textContent = 'This is a new element from Javascript'
 // document.querySelector('body').appendChild(newParagraph)
 
-// todos.forEach(function (todo) {
-//     if (!todo.completed) {
-//     const newParagraph = document.createElement('p')
-//     newParagraph.textContent = todo.text
-//     document.querySelector('body').appendChild(newParagraph)
-//     }
-// });
+const filters = {
+    searchText: ''
+}
 
-document.querySelector('button').addEventListener('click', function(e){
-    e.target.textContent = 'Clicked!'
+const renderTodos = function (todos, filters) {
+    const filteredTodos = todos.filter(function (todo){
+        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
+
+    document.querySelector('#todos').innerHTML = ''
+
+    filteredTodos.forEach(function (todo) {
+        if (!todo.completed) {
+        const newParagraph = document.createElement('p')
+        newParagraph.textContent = todo.text
+        document.querySelector('#todos').appendChild(newParagraph)
+        }
+    });
+}
+
+renderTodos(todos, filters)
+
+document.querySelector('button#add-todo').addEventListener('click', function(e){
+    e.target.textContent = 'Added!'
+})
+
+document.querySelector('input#new-todo-text').addEventListener('input', function(e){
+    filters.searchText = e.target.value
+    renderTodos(todos, filters)
 })
