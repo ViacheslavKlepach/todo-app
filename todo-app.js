@@ -1,43 +1,9 @@
-const todos = [{
-    text: 'Order cat food',
-    completed: true
-}, {
-    text: 'Clean kitchen',
-    completed: false
-}, {
-    text: 'Buy food',
-    completed: true
-}, {
-    text: 'Do work',
-    completed: true
-}, {
-    text: 'Exercise',
-    completed: false
-}]
+const todos = getSavedTodos()
 
 //initial filter pattern
 const filters = {
     searchText: '',
     hideCompleted: false
-}
-
-//filters and renders todos based on the filter pattern
-const renderTodos = function (todos, filters) {
-    //filters todos based on the filter pattern and by value from hide-completed checkbox
-    const filteredTodos = todos.filter(function (todo){
-        const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
-        const hideCompletedMatch = !filters.hideCompleted || !todo.completed
-        return searchTextMatch && hideCompletedMatch
-    })
-
-    //clears initial todos
-    document.querySelector('#todos').innerHTML = ''
-    //renders filterred todos
-    filteredTodos.forEach(function (todo) {
-            const newParagraph = document.createElement('p')
-            newParagraph.textContent = todo.text
-            document.querySelector('#todos').appendChild(newParagraph)
-    });
 }
 
 //renders initial todos
@@ -56,6 +22,8 @@ document.querySelector('#new-todo').addEventListener('submit', function (e) {
         text: e.target.elements.text.value,
     completed: false
     })
+    //save to local storage
+    SaveTodos(todos)
     renderTodos(todos, filters)
     e.target.elements.text.value = ''
 })
