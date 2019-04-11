@@ -4,7 +4,7 @@
     <head></head>
     <body>
         <h1>Todos</h1>
-        <input id="search-text" type="text" placeholder="Filter todos">
+        <input id="search-title" type="text" placeholder="Filter todos">
 
         <label>
             <input type="checkbox" id="hide-completed"> Hide completed
@@ -14,8 +14,14 @@
             <input type="text" placeholder="Something to do" name="text">
             <button>Add Todo</button>
         </form>
+        <select id="filter-by">
+            <option value="byEdited">Sort by last edited</option>
+            <option value="byCreated">Sort by recently created</option>
+            <option value="alphabetical">Sort alphabetically</option>
+        </select>
     </body>
-    <script src="https://wzrd.in/standalone/uuid%2Fv4@latest"></script>
+    <script src="uuidv4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
     <script src="todo-functions.js"></script>
     <script src="todo-app.js"></script>
 </html>
