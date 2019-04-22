@@ -3,21 +3,24 @@ class Hangman {
         this.word = word.toLowerCase().split('')
         this.remainingGuesses = remainingGuesses
         this.guessedLetters = []
+        this.status = 'playing'
     }
 }
 
 Hangman.prototype.makeGuess = function (guess) {
-    guess = guess.toLowerCase()
-    const isUnique = !this.guessedLetters.includes(guess)
-    const isBadGuess = !this.word.includes(guess)
-    const isGoodGuess = this.word.includes(guess)
-
-    if (isUnique && isGoodGuess) {
-        this.guessedLetters.push(guess)
-    }
-
-    if (isUnique && isBadGuess) {
-        this.remainingGuesses--
+    if (this.status === 'playing') {
+        guess = guess.toLowerCase()
+        const isUnique = !this.guessedLetters.includes(guess)
+        const isBadGuess = !this.word.includes(guess)
+        const isGoodGuess = this.word.includes(guess)
+    
+        if (isUnique && isGoodGuess) {
+            this.guessedLetters.push(guess)
+        }
+    
+        if (isUnique && isBadGuess) {
+            this.remainingGuesses--
+        }
     }
 }
 
@@ -35,16 +38,15 @@ Hangman.prototype.getPuzzle = function () {
     return puzzle
 }
 
-const puzzleEl = document.querySelector('#puzzle')
-const guessesEl = document.querySelector('#guesses')
-const game1 = new Hangman('CAT', 3)
-
-
-
-window.addEventListener('keypress', function (e) {
-  const guess = String.fromCharCode(e.charCode)
-    game1.makeGuess(guess)
-    console.log(game1.remainingGuesses)
-    puzzleEl.textContent = game1.getPuzzle()
-    guessesEl.textContent = game1.remainingGuesses
-})
+Hangman.prototype.getMessage = function (game) {
+    let message = ''
+    puzzle = game.getPuzzle()
+    if (!puzzle.includes('*')) {
+        message = `Great Work! You guessed the word.`
+    } else if (game.remainingGuesses < 1) {
+        message = `Nice try! the word was: ${this.word.join('')}`
+    } else {
+        message = `Guesses left: ${game.remainingGuesses}`
+    }
+    return message
+}
