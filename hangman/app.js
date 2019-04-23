@@ -1,5 +1,4 @@
 const puzzleEl = document.querySelector('#puzzle')
-const guessesEl = document.querySelector('#guesses')
 const statusEl = document.querySelector('#status')
 const game1 = new Hangman('CAT', 3)
 
