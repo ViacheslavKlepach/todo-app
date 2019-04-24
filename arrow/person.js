@@ -1,32 +1,27 @@
-'use strict'
-
-// const people = [{name: 'Viacheslav',
-// age: 28}, {
-//     name: 'Bob',
-//     age: 44
-// }, {
-//     name: 'Amy',
-//     age: 33
-// }]
-
-// console.log(people)
-
-// const person = people.find((person) => person.age === 28)
-
-// console.log(person.name)
-
-const team = ['Viacheslav', 'Bob', 'Oksana', 'Olga', 'Petro']
-
-const teamSize = (team) => team.length
-
-const showTeamSize = (team) => {
-    return `Team size: ${team.length}`
+class Person {
+    constructor(fullname, likes = []) {
+        const names = fullname.split(' ')
+        this.firstName = names[0]
+        this.lastName = names[1]
+        this.likes = likes
+    }
+    sayHi(){
+        return `Hello ${this.firstName} ${this.lastName} from Person`
+    }
 }
 
-const displayWarning = () => {
-    return `Too many people in the team`
+class Student extends Person {
+    constructor(fullname, likes, years) {
+        super(fullname, likes)
+        this.years = years
+    }
+    sayHi(){
+        return `Hello ${this.firstName} ${this.lastName} from Student`
+    }
 }
 
-const message = teamSize(team) <= 4 ? showTeamSize(team) : displayWarning()
+const me = new Person('Viacheslav Klepach', ['Play', 'Read'])
+console.log(me)
 
-console.log(message)
+const student = new Student('Viacheslav Klepach', ['Play', 'Read'], 28)
+console.log(student.sayHi())
