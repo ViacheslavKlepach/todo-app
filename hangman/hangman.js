@@ -23,7 +23,7 @@ class Hangman {
         }
     }
 
-    getPuzzle() {
+    get puzzle() {
         let puzzle = ''
     
         this.word.forEach((letter) => {
@@ -39,7 +39,7 @@ class Hangman {
 
     getMessage(game) {
         let message = ''
-        let puzzle = game.getPuzzle()
+        let puzzle = game.puzzle
         if (!puzzle.includes('*')) {
             message = `Great Work! You guessed the word.`
         } else if (game.remainingGuesses < 1) {
